@@ -9,7 +9,6 @@ logout() { loginctl terminate-session self; }
 help[logout]="Log out of the current session"
 
 monitors() { :; }
-help[monitors]="Not implemented"
 
 suspend()
 {
