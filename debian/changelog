@@ -1,3 +1,11 @@
+sessionctl (0.2) unstable; urgency=medium
+
+  * sessionctl: suspend => sleep
+  * d/control: depend on systemd
+  * Overrides will be provided by the desktop meta packages
+
+ -- Dimitry Ishenko <dimitry.ishenko@gmail.com>  Mon, 29 Jun 2026 12:13:33 -0400
+
 sessionctl (0.1) unstable; urgency=medium
 
   * Add Debian release workflow
