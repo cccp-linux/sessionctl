@@ -1,19 +1,24 @@
 #!/bin/bash
 
-declare -A help
+declare -A info
 
+####################
 lock() { loginctl lock-session; }
-help[lock]="Lock the current session"
+info[lock]="Lock the current session"
 
+####################
 logout() { loginctl terminate-session self; }
-help[logout]="Log out of the current session"
+info[logout]="Log out of the current session"
 
+####################
 poweroff() { systemctl poweroff; }
-help[poweroff]="Power off the system"
+info[poweroff]="Power off the system"
 
+####################
 reboot() { systemctl reboot; }
-help[reboot]="Reboot the system"
+info[reboot]="Reboot the system"
 
+####################
 sleep()
 {
     case "$1" in
@@ -22,35 +27,37 @@ sleep()
     esac
     systemctl sleep
 }
-help[sleep]="Put the system to sleep: sleep [-b|--on-battery]"
+info[sleep]="Put the system to sleep: sleep [-b|--on-battery]"
 
-paths=(
-    "$HOME/.config/sessionctl"
-    "/etc/sessionctl"
-    "/usr/share/sessionctl"
-)
-desktop="${XDG_CURRENT_DESKTOP%%:*}"
-
-for path in "${paths[@]}"; do
-    if [[ -f "$path/$desktop" ]]; then
-        source "$path/$desktop"
-        break
-    fi
-done
-
-action="$1"
-shift 2>/dev/null
-
-if [[ -v "help[$action]" ]]; then
-    "$action" "$@"
-else
+####################
+help()
+{
     echo "
 Usage: $(basename "$0") <action> [args...]
 
 Where <action> is one of:"
-    actions=$(printf "%s\n" "${!help[@]}" | sort)
+    actions=$(printf "%s\n" "${!info[@]}" | sort)
     for action in $actions; do
-        printf "   %-10s %s\n" "$action" "${help[$action]}"
+        printf "   %-10s %s\n" "$action" "${info[$action]}"
     done
     echo
-fi
+}
+info[help]="Show this help screen and exit"
+
+####################
+paths=(
+    "/usr/share/sessionctl"
+    "/etc/sessionctl"
+    "$HOME/.config/sessionctl"
+)
+desktop="${XDG_CURRENT_DESKTOP%%:*}"
+
+for path in "${paths[@]}"; do
+    [[ -f "$path/$desktop" ]] && source "$path/$desktop"
+done
+
+####################
+[[ "$1" == "-h" || "$1" == "--help" ]] && action="help" || action="$1"
+shift 2>/dev/null
+
+[[ -v "info[$action]" ]] && "$action" "$@"
