@@ -11,4 +11,5 @@ Package: sessionctl
 Architecture: any
 Depends:
  ${misc:Depends},
+ systemd,
 Description: Session control wrapper script
