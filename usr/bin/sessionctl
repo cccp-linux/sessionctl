@@ -8,8 +8,6 @@ help[lock]="Lock the current session"
 logout() { loginctl terminate-session self; }
 help[logout]="Log out of the current session"
 
-monitors() { :; }
-
 poweroff() { systemctl poweroff; }
 help[poweroff]="Power off the system"
 
@@ -43,20 +41,16 @@ done
 action="$1"
 shift 2>/dev/null
 
-case "$action" in
-    lock) lock "$@";;
-    logout) logout "$@";;
-    monitors) monitors "$@";;
-    suspend) suspend "$@";;
-
-    *) echo "
+if [[ -v "help[$action]" ]]; then
+    "$action" "$@"
+else
+    echo "
 Usage: $(basename "$0") <action> [args...]
 
 Where <action> is one of:"
-        actions=$(printf "%s\n" "${!help[@]}" | sort)
-        for action in $actions; do
-            printf "   %-10s %s\n" "$action" "${help[$action]}"
-        done
-        echo
-        ;;
-esac
+    actions=$(printf "%s\n" "${!help[@]}" | sort)
+    for action in $actions; do
+        printf "   %-10s %s\n" "$action" "${help[$action]}"
+    done
+    echo
+fi
