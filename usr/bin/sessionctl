@@ -18,7 +18,7 @@ suspend()
     esac
     systemctl suspend
 }
-help[suspend]="Suspend the system (Usage: suspend [-b|--on-battery])"
+help[suspend]="Suspend the system: suspend [-b|--on-battery]"
 
 paths=(
     "$HOME/.config/sessionctl"
