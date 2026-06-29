@@ -10,6 +10,12 @@ help[logout]="Log out of the current session"
 
 monitors() { :; }
 
+poweroff() { systemctl poweroff; }
+help[poweroff]="Power off the system"
+
+reboot() { systemctl reboot; }
+help[reboot]="Reboot the system"
+
 sleep()
 {
     case "$1" in
