@@ -7,6 +7,8 @@ Where <action> is one of:
    lock       Lock the current session
    logout     Log out of the current session: logout [-y|--yes]
    monitors   Toggle monitor power: monitors <on|off>
+   poweroff   Power off the system
+   reboot     Reboot the system
    sleep      Put the system to sleep: sleep [-b|--on-battery]
 ```
 
