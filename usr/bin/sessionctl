@@ -10,15 +10,15 @@ help[logout]="Log out of the current session"
 
 monitors() { :; }
 
-suspend()
+sleep()
 {
     case "$1" in
         -b|--on-battery)
             grep -q '1' /sys/class/power_supply/AC*/online 2>/dev/null && return 0;;
     esac
-    systemctl suspend
+    systemctl sleep
 }
-help[suspend]="Suspend the system: suspend [-b|--on-battery]"
+help[sleep]="Put the system to sleep: sleep [-b|--on-battery]"
 
 paths=(
     "$HOME/.config/sessionctl"
