@@ -16,4 +16,4 @@ monitors()
         off) niri msg action power-off-monitors;;
     esac
 }
-help[monitor]="Turn monitors on or off"
+help[monitors]="Turn monitors on or off"
