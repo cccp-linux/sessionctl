@@ -11,8 +11,15 @@ help[logout]="Log out of the current session"
 monitors() { :; }
 help[monitors]="Not implemented"
 
-suspend() { systemctl suspend; }
-help[suspend]="Suspend the system"
+suspend()
+{
+    case "$1" in
+        -b|--on-battery)
+            grep -q '1' /sys/class/power_supply/AC*/online 2>/dev/null && return 0;;
+    esac
+    systemctl suspend
+}
+help[suspend]="Suspend the system (Usage: suspend [-b|--on-battery])"
 
 paths=(
     "$HOME/.config/sessionctl"
