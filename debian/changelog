@@ -1,5 +1,18 @@
-sessionctl (0.1) UNRELEASED; urgency=medium
+sessionctl (0.1) unstable; urgency=medium
 
-  * Initial release.
+  * Add Debian release workflow
+  * Update README.md
+  * niri: tweak
+  * sessionctl: tweak
+  * sessionctl: name => desktop
+  * sessionctl: tweak
+  * Remove monitor help
+  * Add on-battery option to suspend
+  * niri: fix help index
+  * Update README.md
+  * Add LICENSE.md
+  * Add Debian packaging
+  * Add overrides for niri
+  * Initial sessionctl implementation
 
- -- Dimitry Ishenko <dimitry.ishenko@gmail.com>  Sun, 28 Jun 2026 22:47:24 -0400
+ -- Dimitry Ishenko <dimitry.ishenko@gmail.com>  Mon, 29 Jun 2026 11:23:39 -0400
