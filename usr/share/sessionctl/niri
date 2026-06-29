@@ -7,7 +7,7 @@ logout()
         *) niri msg action quit;;
     esac
 }
-help[logout]="Log out of the current session (add -y or --yes to skip confirmation)"
+help[logout]="Log out of the current session: logout [-y|--yes]"
 
 monitors()
 {
@@ -16,4 +16,4 @@ monitors()
         off) niri msg action power-off-monitors;;
     esac
 }
-help[monitors]="Turn monitors on or off"
+help[monitors]="Toggle monitor power: monitors <on|off>"
