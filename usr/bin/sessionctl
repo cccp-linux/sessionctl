@@ -1,0 +1,50 @@
+#!/bin/bash
+
+declare -A help
+
+lock() { loginctl lock-session; }
+help[lock]="Lock the current session"
+
+logout() { loginctl terminate-session self; }
+help[logout]="Log out of the current session"
+
+monitors() { :; }
+help[monitors]="Not implemented"
+
+suspend() { systemctl suspend; }
+help[suspend]="Suspend the system"
+
+paths=(
+    "$HOME/.config/sessionctl"
+    "/etc/sessionctl"
+    "/usr/share/sessionctl"
+)
+name="${XDG_CURRENT_DESKTOP%%:*}"
+
+for path in "${paths[@]}"; do
+    if [[ -f "$path/$name" ]]; then
+        source "$path/$name"
+        break
+    fi
+done
+
+action="$1"
+shift 2>/dev/null
+
+case "$action" in
+    lock) lock "$@";;
+    logout) logout "$@";;
+    monitors) monitors "$@";;
+    suspend) suspend "$@";;
+
+    *) echo "
+Usage: $(basename "$0") <action> [<args> ...]
+
+Where <action> is one of:"
+        actions=$(printf "%s\n" "${!help[@]}" | sort)
+        for action in $actions; do
+            printf "   %-10s %s\n" "$action" "${help[$action]}"
+        done
+        echo
+        ;;
+esac
